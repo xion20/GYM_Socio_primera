@@ -2,7 +2,7 @@ package GYM;
 import GYM_util.clsListaArr;
 
 public class Curso {
-	int curso_id;
+	String curso_id;
 	String descripcion;
 	String nombre;
 	int cupo_max;
@@ -10,7 +10,7 @@ public class Curso {
 	clsListaArr inscriptos;
 
 	public Curso (int id, String descripcion, String nombre, int cupo_max, int precio) {
-		this.curso_id = id;
+		this.curso_id = "C" + id;
 		this.descripcion = descripcion;
 		this.nombre = nombre;
 		this.cupo_max = cupo_max;
@@ -18,7 +18,7 @@ public class Curso {
 		this.inscriptos = new clsListaArr (cupo_max);
 	}
 	
-	public int getCodigo () {
+	public String getCodigo () {
 		return this.curso_id;
 	}
 	
@@ -34,13 +34,13 @@ public class Curso {
 		System.out.println ("Precio: " + precio);
 	}
 	
-	void inscribir (Socio socio) {
-		this.inscriptos.insertarU (socio);  
+	void inscribir (String id) {
+		this.inscriptos.insertarU (id);  
 	}
 	
-	boolean ya_esta (Socio socio) {
+	boolean ya_esta (String id) {
 		boolean flag = false ;
-		if (!inscriptos.esta(socio)) { flag = true ;}
+		if (!inscriptos.esta(id)) { flag = true ;}
 		return flag;
 	}
 	
@@ -52,8 +52,10 @@ public class Curso {
 		return this.nombre;
 	}
 	
-	protected void mostrarSocios () {
-		this.inscriptos.MostrarLst();
+	protected String[] mostrarSocios () {
+		String [] temp = this.inscriptos.getIds();
+		return temp;
 	}
 
 }
+

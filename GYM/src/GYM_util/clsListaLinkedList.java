@@ -1,5 +1,8 @@
 package GYM_util;
 import GYM.Socio;
+import GYM.Normal;
+import GYM.Jubilado;
+import GYM.Infantil;
 import GYM.Curso;
 
 public class clsListaLinkedList {
@@ -20,7 +23,7 @@ public class clsListaLinkedList {
 	
 	
 	// inserta elemento a la derecha
-	public void insertaFin(Object objElemento){
+	public void inserta(Object objElemento){
 		if (!estaVacia()){
 			this.lista.setNextNode(new clsNode(objElemento));
 			this.lista=this.lista.getNextNode();
@@ -28,61 +31,72 @@ public class clsListaLinkedList {
 			this.tope = this.lista=new clsNode(objElemento);			
 		}
 	}	
-
-	// elimina elemento ubicado m�s a la derecha
-	void eliminaFin(){
-		if (!estaVacia()){
-			if (this.lista == this.tope){
-				// un solo elemento
-				limpiaLista();
-			}else{
-				clsNode temp;
-				for (temp=this.tope;temp.getNextNode()!=lista;temp=temp.getNextNode());
-				this.lista=temp;
-				this.lista.setNextNode(null);			
-			}
-		}else{
-			System.out.println("Error eliminaFin. Lista vacia");			
-		}
-	}		
-
-	
-	// inserta elemento a la izq
-	public void insertaTope(Object objElemento){
-		if (!estaVacia()){
-			this.tope = new clsNode(objElemento,this.tope);		
-		}else{
-			this.tope = this.lista=new clsNode(objElemento);			
-		}
-	}	
-
-	
-	// elimina elemento ubicado m�s a la izq
-	void eliminaTope(){
-		if (!estaVacia()){
-			if (this.lista==this.tope){
-				// un solo elemento
-				limpiaLista();
-			}else{
-				this.tope=this.tope.getNextNode();			
-			}
-		}else{
-			System.out.println("Error eliminaTope. Lista vacia");			
-		}
-	}	
 	
 	
-	public void muestraSoc(){
+	public int muestraSocN(int i){
 		clsNode temp;
-		int i = 0;
 		if (!estaVacia()){
 			temp = this.tope;
 			while (temp!=null){
-				Socio soc =(Socio)temp.getNodeInfo();
+				Normal soc =(Normal)temp.getNodeInfo();
 				i++;
 				System.out.println("============");
 				System.out.println("Socio N°" + i);
 				soc.getDatos();
+				temp=temp.getNextNode();
+			}			
+		}else{
+			System.out.println("aun no hay socios Normales");
+		}return i;		
+	}
+	
+	public int muestraSocJ(int i){
+		clsNode temp;
+		if (!estaVacia()){
+			temp = this.tope;
+			while (temp!=null){
+				Jubilado soc =(Jubilado)temp.getNodeInfo();
+				i++;
+				System.out.println("============");
+				System.out.println("Socio N°" + i);
+				soc.getDatos();
+				temp=temp.getNextNode();
+			}			
+		}else{
+			System.out.println("aun no hay socios Jubilados");
+		}return i;		
+	}
+	
+	public int muestraSocI(int i){
+		clsNode temp;
+		if (!estaVacia()){
+			temp = this.tope;
+			while (temp!=null){
+				Infantil soc =(Infantil)temp.getNodeInfo();
+				i++;
+				System.out.println("============");
+				System.out.println("Socio N°" + i);
+				soc.getDatos();
+				temp=temp.getNextNode();
+			}			
+		}else{
+			System.out.println("aun no hay socios Infantiles");
+		}return i;		
+	}
+	
+	public void muestraSocId (String id, int i){
+		clsNode temp;
+		if (!estaVacia()){
+			boolean response = false;
+			temp = this.tope;
+			while (temp!=null && !response){
+				Socio soc = (Socio)temp.getNodeInfo();
+				if (soc.getId() == id) {
+					System.out.println("============");
+					System.out.println("Socio N°" + i);
+					soc.getDatos();
+					response = true;
+				}
 				temp=temp.getNextNode();
 			}			
 		}else{
@@ -104,19 +118,63 @@ public class clsListaLinkedList {
 				temp=temp.getNextNode();
 			}			
 		}else{
+			System.out.println("Aun no se han agregado cursos.");
+		}		
+	}
+	
+	public void muestraCursId(String id, int i){
+		clsNode temp;
+		if (!estaVacia()){
+			boolean response = false;
+			temp = this.tope;
+			while (temp!=null && !response){
+				Curso curs = (Curso) temp.getNodeInfo();
+				if (curs.getCodigo() == id) {
+					System.out.println("============");
+					System.out.println("Curso N°" + i);
+					curs.muestra();
+					response = true;
+				}
+				temp=temp.getNextNode();
+			}			
+		}else{
 			System.out.println("Error muestra. Lista vacia");
 		}		
 	}
 	
 	clsNode getTope(){return tope;}
 	
-	public Socio darSocio (int numero) {
+	public Normal darSocioN (int numero) {
 		clsNode temp = this.tope;
 		int i = 1;
-		Socio socio = null;
+		Normal socio = null;
 		while (temp!=null){
 			if (i == numero) {
-				socio = (Socio) temp.getNodeInfo();
+				socio = (Normal) temp.getNodeInfo();
+			} 
+			temp = temp.getNextNode();
+		} return socio;
+	}
+	
+	public Jubilado darSocioJ (int numero) {
+		clsNode temp = this.tope;
+		int i = 1;
+		Jubilado socio = null;
+		while (temp!=null){
+			if (i == numero) {
+				socio = (Jubilado) temp.getNodeInfo();
+			} 
+			temp = temp.getNextNode();
+		} return socio;
+	}
+	
+	public Infantil darSocioI (int numero) {
+		clsNode temp = this.tope;
+		int i = 1;
+		Infantil socio = null;
+		while (temp!=null){
+			if (i == numero) {
+				socio = (Infantil) temp.getNodeInfo();
 			} 
 			temp = temp.getNextNode();
 		} return socio;
@@ -135,24 +193,5 @@ public class clsListaLinkedList {
 		}
 		return x;
 	}
-	
-	void Desplazar (char Sentido, int Cant) {
-		if (!estaVacia()) {
-			if (Sentido == 'D') {
-				for (int i = 0; i < Cant; i++) {
-					this.insertaTope(null);
-				}
-			}else {
-				for (int i = 0; i < Cant; i++) {
-					this.insertaFin(null);
-				}
-			}
-		}
-		else {
-			System.out.println("Error muestra. Lista vacia");
-		}
-	}
-	
-	
 
 }

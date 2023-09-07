@@ -2,8 +2,8 @@ package GYM;
 
 public class Jubilado extends Socio {
 	public Jubilado (String nya, int dni, int id) {
-		super(nya, dni, id);
-		this.socio_id = 200;
+		super(nya, dni);
+		this.id = "J" +  id;
 	}
 	
 	protected void setCuota_m (int cuota_m) {
@@ -17,3 +17,4 @@ public class Jubilado extends Socio {
 	
 
 }
+

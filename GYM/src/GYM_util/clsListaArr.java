@@ -1,15 +1,14 @@
 package GYM_util;
-import GYM.Socio;
 
 public class clsListaArr {
-    private Object [] Lst;
+    private String [] Lst;
 	private int tamL;
 	private int cant;
 	
 	
 	public clsListaArr (int tm) {
 		tamax(tm);
-		Lst = new Object [this.tamL];
+		Lst = new String [this.tamL];
 		this.cant = 0;
 	}
 	
@@ -34,24 +33,21 @@ public class clsListaArr {
 	private int getcant() {
 		return cant;
 	}
-
-	private Object getElm (int pos) {
-		return Lst [pos];
-	}
 	
 	//Insertar elementos
 
-	public void insertarU (Object Elm) {
+	public void insertarU (String Elm) {
 		if (!lleno()) {
 			Lst [this.cant] = Elm;
 			cant++;
 		}
 		else {
-			System.out.println ("error, curso lleno");
+			System.out.println ("Error, curso lleno");
 		}
 	}
-	
-	public void MostrarLst () {
+	 
+	/*
+	 * public void MostrarLst () {
 		if (!vacia()) {
 			for (int i = 0; i < this.cant; i ++) {
 				System.out.println("============");
@@ -64,6 +60,20 @@ public class clsListaArr {
 			System.out.println ("Error, curso vacio.");
 		}
 	}
+	 */
+	
+	public String [] getIds () {
+		String [] temp = new String [this.cant];
+		if (!vacia()) {
+			for (int i = 0; i < this.cant; i ++) {
+				temp [i] = this.Lst[i];
+			}
+		}else {
+			System.out.println ("Error, curso vacio.");
+		}
+		return temp;
+	}
+	
 	
 	private void elimelm (int ind) {
 		for (int j = ind; j < this.cant - 1; j++) {
@@ -74,7 +84,7 @@ public class clsListaArr {
 
 	}
 
-	public boolean esta (Object elm) {
+	public boolean esta (String elm) {
 		boolean flag = false;
 		if (!vacia()) {
 			for (int i = 0; i < this.cant; i ++) {
@@ -85,3 +95,4 @@ public class clsListaArr {
 	}
 	
 }
+

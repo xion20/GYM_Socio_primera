@@ -1,6 +1,7 @@
 package GYM_util;
+
 public abstract class clsListaOrdLinkedL{
-	protected clsNode lista;
+	protected clsNodeCurso lista;
 	protected int contador;
 	
 	public clsListaOrdLinkedL(){
@@ -17,49 +18,43 @@ public abstract class clsListaOrdLinkedL{
 		this.lista=null;;
 	}
 	
-	public abstract boolean esMenor(Object objA, Object objB);
-	public abstract boolean esMayor(Object objA, Object objB);
-	public abstract boolean iguales(Object objA, Object objB);
+	public abstract boolean esMenor(String idA, String idB);
+	public abstract boolean esMayor(String idA, String idB);
+	public abstract boolean iguales(String idA, String idB);
 	
-	public Object devuelveElemento(int posicion){
+	public String devuelveId (int posicion){
 		int counter = 0;
-		clsNode temp;
+		clsNodeCurso temp;
 		temp = this.lista;
-		Object elemento = null;
+		String elemento = null;
 		if (posicion >= 0 && posicion < this.contador){			
 			while (counter < posicion){
 				temp = temp.getNextNode();
 				counter ++;
 			}
-			elemento = temp.getNodeInfo();
+			elemento = temp.getNodeid();
 
 		}else{
 			System.out.println("-");
 		}		
-		
 		return elemento;
 	}
 	
-	public void mezclarListas(clsListaOrdLinkedL lista1 , clsListaOrdLinkedL lista2 ){
-		
-	}
-	
-	
-	public void inserta(Object objElemento){
-		clsNode node;
-		node = new clsNode(objElemento);
+	public void inserta (String id, int precio){
+		clsNodeCurso node;
+		node = new clsNodeCurso (id, precio);
 		this.contador++;
 		if (estaVacia()){
 			this.lista = node;
 		} else{
-			if (esMenor(objElemento, this.lista.getNodeInfo())){
+			if (esMenor(id, this.lista.getNodeid())){
 				node.setNextNode(this.lista);
 				this.lista=node;
 			} else{
-				clsNode temp = this.lista;
+				clsNodeCurso temp = this.lista;
 				boolean flag = false;
 				while (temp.getNextNode()!=null && !flag){
-					if (esMayor(objElemento,temp.getNextNode().getNodeInfo())){
+					if (esMayor(id,temp.getNextNode().getNodeid())){
 						temp = temp.getNextNode();
 					}else{
 						flag = true;
@@ -72,14 +67,14 @@ public abstract class clsListaOrdLinkedL{
 	}	
 	
 	
-	public boolean esta(Object objElemento){
+	public boolean esta(String id){
 		boolean response = false;
 		if (estaVacia()){
 			System.out.println("Error esta. lista vacia");			
 		} else{
-			clsNode temp = this.lista;
+			clsNodeCurso temp = this.lista;
 			while (temp!=null && !response){
-				if (iguales(objElemento, temp.getNodeInfo())){
+				if (iguales(id, temp.getNodeid())){
 					response=true;
 				}else{
 					temp=temp.getNextNode();
@@ -89,28 +84,44 @@ public abstract class clsListaOrdLinkedL{
 		return response;
 	}	
 	
+	public String [] getIds() {
+		String [] ids = new String [this.contador];
+		if (estaVacia()){
+			System.out.println("Error esta. lista vacia");			
+		} else{
+			int i = 0;
+			clsNodeCurso temp = this.lista;
+			while (temp != null) {
+				ids [i] = temp.getNodeid();
+				i++;
+				temp = temp.getNextNode();
+			}		
+		}
+		return ids;
+	}
+	
 
-	public void elimina(Object objElemento){
-		clsNode temp, ant;
+	public void elimina(String id){
+		clsNodeCurso temp, ant;
 		boolean flag=false;
 		
 		if (estaVacia()){
 			System.out.println("Error elimina. lista vacia");
 		}else{
 						
-			if (!esta(objElemento)){
+			if (!esta(id)){
 				System.out.println("Error elimina. no esta elemento");
 			}else{
 				
 				this.contador--;
-				if (iguales(objElemento,this.lista.getNodeInfo())){
+				if (iguales(id,this.lista.getNodeid())){
 					this.lista=this.lista.getNextNode();
 				}else{				
-					ant=this.lista;
-					temp=this.lista.getNextNode();
+					ant = this.lista;
+					temp = this.lista.getNextNode();
 
 					while (temp!=null && !flag){
-						if (iguales(objElemento, temp.getNodeInfo())){
+						if (iguales(id,this.lista.getNodeid())){
 							flag=true;
 						}else{
 							ant=temp;

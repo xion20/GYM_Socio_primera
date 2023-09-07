@@ -79,11 +79,8 @@ public abstract class Persona {
 		System.out.println("DNI: "+ this.dni);
 	}
 	
-	protected void mostrarDatosPersona() {
+	protected void mostrar() {
 		System.out.println("Nombre y Apellido: "+nya);
-		System.out.println("Edad actual: "+ edad);
-		System.out.println("Edad actual: "+ dni);
-		System.out.println("Direccion: "+direccion);
-		System.out.println("Correo electr�nico: "+email);
+		System.out.println("DNI "+ dni);
 	}
 }

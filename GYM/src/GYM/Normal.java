@@ -3,8 +3,8 @@ package GYM;
 public class Normal extends Socio {
 
 	public Normal(String nya, int dni, int id) {
-		super(nya, dni, id);
-		this.socio_id = 100;
+		super(nya, dni);
+		this.id = "N" +  id;
 	}
 	
 	protected void setCuota_m (int cuota_m) {
@@ -14,5 +14,6 @@ public class Normal extends Socio {
 	protected void calq_total () {
 		this.cuota_total = cuota_mensual + cursos.total();
 	}
-
 }
+
+

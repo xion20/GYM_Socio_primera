@@ -3,7 +3,7 @@ import GYM_util.clsListaOrdLinkedCursos;
 import java.util.Scanner;
 
 public abstract class Socio extends Persona {
-	int socio_id;
+	String id;
 	int cuota_mensual;
 	clsListaOrdLinkedCursos cursos;
 	int cuota_total;
@@ -11,9 +11,8 @@ public abstract class Socio extends Persona {
 	
 	public Socio () { }
 	
-	public Socio (String nya, int dni, int id) {
+	public Socio (String nya, int dni) {
 		super(nya, dni);
-		this.socio_id = id;
 		this.cuota_mensual = 0;
 		this.cursos = new clsListaOrdLinkedCursos();
 	}
@@ -36,9 +35,9 @@ public abstract class Socio extends Persona {
 		System.out.println (this.cuota_total);
 	}
 	
-	protected void agregar_curso (Curso curso) {
-		this.cursos.inserta (curso);
-		System.out.println ("Se ha agregado a " + this.nya + " a " + curso.getNombre());
+	protected void agregar_curso (String id, int cuota) {
+		this.cursos.inserta (id,cuota);
+		System.out.println ("Se ha agregado a " + this.nya + " al curso.");
 	}
 	
 	public void getDatos () {
@@ -46,9 +45,15 @@ public abstract class Socio extends Persona {
 		System.out.println (this.dni);
 	}
 	
-	public void getCursos () {
-		this.cursos.muestra();
+	public String [] getCursos () {
+		String [] temp = this.cursos.getIds();
+		return temp;
+	}
+	
+	public String getId() {
+		return this.id;
 	}
 	
 	
 }
+
